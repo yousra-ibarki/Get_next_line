@@ -1,33 +1,30 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
+#include "get_next_line.h"
 #define BUFFER_SIZE 100
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static char *hold;
-	char *buffer; 
-	int nb = 0;
-	int i = 0; 
-	buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if(!buffer)
-		return NULL;
-	hold = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if(!hold)
-		return NULL;
-	buffer[BUFFER_SIZE] = '\0';
-	nb = read(fd, buffer, BUFFER_SIZE);
-	while(hold[i])
-	{ 	
-		if(hold[i] == '\n')
-		i++;
+	static char	*hold;
+	char		*buffer;
+	int			nb;
+	int			i;
+
+	nb = 0;
+	i = 0;
+	//hold = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	// if(!hold)
+	// 	return (NULL);
+	while (nb > 0 && hold[i] != '\n')
+	{
+		buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+		if (!buffer)
+			return (NULL);
+		buffer[BUFFER_SIZE] = '\0';
+		nb = read(fd, buffer, BUFFER_SIZE);
+		hold = ft_substr(buffer, 0, ft_count(buffer));
 	}
-	strcpy(hold, buffer);
-	return hold;
+	return (hold);
 }
-int main()
+int	main(void)
 {
 	int fd = 0;
 	char *str;
@@ -36,4 +33,6 @@ int main()
 	//open("txt",O_RDWR);
 	str = get_next_line(fd);
 	printf("%s\n", str);
+	// str = get_next_line(fd);
+	// printf("%s\n", str);
 }
