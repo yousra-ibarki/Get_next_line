@@ -14,7 +14,7 @@ static char	*strrcpy(char *src, char *dst)
 	return (dst);
 }
 
-char	*ft_strdup(char *s1)
+static char	*ft_strdup(char *s1)
 {
 	int		len;
 	char	*arr;
