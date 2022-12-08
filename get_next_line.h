@@ -7,6 +7,7 @@
 #include <string.h>
 #define BUFFER_SIZE 10
 
+char	*ft_strjoin(char const *s1, char const *s2);
 char *get_next_line(int fd);
 char *ft_backslash(char *hold);
 char *ft_cpy(char *holdline, char *hold);
