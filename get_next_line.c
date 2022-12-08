@@ -1,12 +1,6 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
-#define BUFFER_SIZE 100
 #include "get_next_line.h"
 
-char *getline(char *hold)
+char *ft_getline(char *hold)
 {
 	int i = 0;
 	char *holdline;
@@ -56,6 +50,7 @@ char *get_next_line(int fd)
 	return 0;
 	while(!ft_backslash(hold) && hold[i] != '\n')
 	{
+	printf("hello world\n");
 		buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 		if(!buffer)
 			return NULL;
@@ -64,6 +59,7 @@ char *get_next_line(int fd)
 	{
 		free(buffer);
 		return 0;
+	}
 	}
 	buffer[nbb] = '\0';
 	hold = ft_strjoin(hold, buffer);
@@ -75,12 +71,9 @@ char *get_next_line(int fd)
 		return NULL;
 	}
 	if(hold)
-		holdline = getline(hold);
+		holdline = ft_getline(hold);
 		hold = ft_nextone(hold);
 		return holdline;
-	
-	}
-	
 }
 
 int main()
