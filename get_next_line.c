@@ -4,6 +4,7 @@ char *ft_getline(char *hold)
 {
 	int i = 0;
 	char *holdline;
+
 	if(!hold)
 	return 0;
 	while(hold[i] && hold[i] != '\n')
@@ -44,13 +45,12 @@ char *get_next_line(int fd)
 	static char *hold;
 	char *buffer;
 	char *holdline; 
-	int nbb = 0;
+	int nbb = 1;
 	int i = 0;
 	if(fd < 0 || BUFFER_SIZE < 1)
 	return 0;
-	while(!ft_backslash(hold) && hold[i] != '\n')
+	while(!ft_backslash(hold) && nbb != 0)
 	{
-	printf("hello world\n");
 		buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
 		if(!buffer)
 			return NULL;
@@ -60,20 +60,22 @@ char *get_next_line(int fd)
 		free(buffer);
 		return 0;
 	}
+		buffer[nbb] = '\0';
+		hold = ft_strjoin(hold, buffer);
 	}
-	buffer[nbb] = '\0';
-	hold = ft_strjoin(hold, buffer);
+	buffer = hold;
 	if(!hold)
 	{
 		if(buffer)
-		free(buffer);
+			free(buffer);
 		hold = NULL;
-		return NULL;
+			return NULL;
 	}
+	hold = buffer;
 	if(hold)
 		holdline = ft_getline(hold);
-		hold = ft_nextone(hold);
-		return holdline;
+	hold = ft_nextone(hold);
+	return holdline;
 }
 
 int main()

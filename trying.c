@@ -13,7 +13,8 @@ if (read_bytes == -1)
 {			
 free(buff);			
 return (NULL);		
-}		rc buff[read_bytes] = '\0';	
+}		
+buff[read_bytes] = '\0';	
 save = ft_strjoin(save, buff);	
 }	
 return (save);

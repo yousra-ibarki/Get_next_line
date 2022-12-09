@@ -3,7 +3,6 @@
 char *ft_backslash(char *hold)
 {
     int i = 0;
-    if(hold == NULL)
         return NULL;
     while(hold[i])
     {
