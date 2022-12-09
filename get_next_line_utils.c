@@ -42,14 +42,39 @@ static char	*ft_strcat(char *ss, const char *s)
 	ss[i + len] = '\0';
 	return (ss);
 }
+char	*strrcpy(const char *src, char *dst)
+{
+	size_t	i;
 
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
+char	*ft_strdup(char *s1)
+{
+	int		len;
+	char	*arr;
+
+	len = ft_strlen(s1);
+	arr = malloc(len * sizeof(char) + 1);
+	if (arr == NULL)
+		return (NULL);
+	arr = strrcpy(s1, arr);
+	return (arr);
+}
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	char	*new;
 
 	i = 0;
-	if (!s1 || !s2)
+	if (!s2)
 		return (0);
 	new = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!new)

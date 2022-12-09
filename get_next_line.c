@@ -49,6 +49,7 @@ char *get_next_line(int fd)
 	int i = 0;
 	if(fd < 0 || BUFFER_SIZE < 1)
 	return 0;
+			hold = ft_strdup("");
 	while(!ft_backslash(hold) && nbb != 0)
 	{
 		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -62,7 +63,6 @@ char *get_next_line(int fd)
 		}
 		buffer[nbb] = '\0';
 		hold = ft_strjoin(hold, buffer);
-		printf("%s\n", hold);
 	}
 	buffer = hold;
 	if(!hold)

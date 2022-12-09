@@ -12,5 +12,6 @@ char *get_next_line(int fd);
 char *ft_backslash(char *hold);
 char *ft_cpy(char *holdline, char *hold);
 int ft_strlen(char *hold);
+char	*ft_strdup(char *s1);
 
 #endif
