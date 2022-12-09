@@ -51,17 +51,18 @@ char *get_next_line(int fd)
 	return 0;
 	while(!ft_backslash(hold) && nbb != 0)
 	{
-		buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
+		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if(!buffer)
 			return NULL;
-	nbb = read(fd, buffer, BUFFER_SIZE);
-	if(nbb < 0)
-	{
-		free(buffer);
-		return 0;
-	}
+		nbb = read(fd, buffer, BUFFER_SIZE);
+		if(nbb < 0 )
+		{
+			free(buffer);
+			return 0;
+		}
 		buffer[nbb] = '\0';
 		hold = ft_strjoin(hold, buffer);
+		printf("%s\n", hold);
 	}
 	buffer = hold;
 	if(!hold)
@@ -74,6 +75,7 @@ char *get_next_line(int fd)
 	hold = buffer;
 	if(hold)
 		holdline = ft_getline(hold);
+		//printf("%c\n", holdline[0]);
 	hold = ft_nextone(hold);
 	return holdline;
 }
