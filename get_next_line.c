@@ -84,12 +84,6 @@ int main()
 	char *str;
 	fd = open("txt", O_CREAT | O_RDWR, 777);
 	str = get_next_line(fd);
-	//while (str)
-	//{
-		str = get_next_line(fd);
-	//}
-
 	printf("%s\n", str);
-	// str = get_next_line(fd);
-	// printf("%s\n", str);
+		//str = get_next_line(fd);
 }
