@@ -23,18 +23,19 @@ char *ft_nextone(char *hold)
 	char *nextone;
 	if(!hold)
 		return 0;
-	while(hold[i] && hold[i] != '\0')
+	while(hold[i] && hold[i] != '\n')
 		i++;
 	nextone = malloc(sizeof(char) * (len - i) + 1);
 	if(!nextone)
 	return 0;
+	i++;
 	while(hold[i])
 	{
 		nextone[k] = hold[i];
-		i++;
 		k++;
+		i++;
 	}
-	nextone[k] = '\n';
+	nextone[k] = '\0';
 	free(hold);
 	return nextone;
 	
@@ -56,7 +57,7 @@ char *get_next_line(int fd)
 		if(!buffer)
 			return NULL;
 		nbb = read(fd, buffer, BUFFER_SIZE);
-		if(nbb < 0 )
+		if(nbb < 0)
 		{
 			free(buffer);
 			return 0;
@@ -83,9 +84,7 @@ char *get_next_line(int fd)
 int main()
 {
 	int fd = 0;
-	char *str;
 	fd = open("txt", O_CREAT | O_RDWR, 777);
-	str = get_next_line(fd);
-	printf("%s\n", str);
-		//str = get_next_line(fd);
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
 }
