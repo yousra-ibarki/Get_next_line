@@ -74,6 +74,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*new;
 
 	i = 0;
+	if (!s1)
+		s1 = ft_strdup("");
 	if (!s2)
 		return (0);
 	new = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
@@ -101,6 +103,8 @@ char *ft_cpy(char *holdline, char *hold)
         holdline[i] = hold[i];
         i++;
     }
+	holdline[i] = '\n';
+	i += 1;
     holdline[i] = '\0';
     return holdline;
 }

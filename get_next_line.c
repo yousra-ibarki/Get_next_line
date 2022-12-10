@@ -11,6 +11,7 @@ char *ft_getline(char *hold)
 	i++;
 	holdline = malloc(sizeof(char) * (i + 2));
 	if(!holdline)
+	
 	return NULL;
 	return ft_cpy(holdline, hold);
 }
@@ -49,13 +50,13 @@ char *get_next_line(int fd)
 	int nbb = 1;
 	int i = 0;
 	if(fd < 0 || BUFFER_SIZE < 1)
-	return 0;
-			hold = ft_strdup("");
+		return 0;
+			// hold = ft_strdup("");
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if(!buffer)
+		return NULL;
 	while(!ft_backslash(hold) && nbb != 0)
 	{
-		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if(!buffer)
-			return NULL;
 		nbb = read(fd, buffer, BUFFER_SIZE);
 		if(nbb < 0)
 		{
@@ -64,6 +65,7 @@ char *get_next_line(int fd)
 		}
 		buffer[nbb] = '\0';
 		hold = ft_strjoin(hold, buffer);
+
 	}
 	buffer = hold;
 	if(!hold)
@@ -78,8 +80,15 @@ char *get_next_line(int fd)
 		holdline = ft_getline(hold);
 		//printf("%c\n", holdline[0]);
 	hold = ft_nextone(hold);
+	// printf("%s", hold);
 	return holdline;
 }
+
+// char *nd_get_line(int fd)
+// {
+// 	char str;
+// 	int i;
+// }
 
 int main()
 {
@@ -87,4 +96,6 @@ int main()
 	fd = open("txt", O_CREAT | O_RDWR, 777);
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+
 }
