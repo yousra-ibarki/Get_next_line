@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_next_line.h"
 
 char	*ft_backslash(char *hold)
@@ -18,7 +17,8 @@ char	*ft_backslash(char *hold)
 	int	i;
 
 	i = 0;
-	return (NULL);
+	if (!hold)
+		return (NULL); 
 	while (hold[i])
 	{
 		if (hold[i] == '\n')
@@ -100,6 +100,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (0);
 	mystrcpy(new, s1);
 	ft_strcat(new, s2);
+	//free(s1);
 	return (new);
 }
 
@@ -131,7 +132,9 @@ char	*ft_cpy(char *holdline, char *hold)
 
 int	ft_strlen(char *hold)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (hold[i])
 		i++;
 	return (i);
