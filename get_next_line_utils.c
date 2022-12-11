@@ -23,8 +23,11 @@ char	*ft_backslash(char *hold)
 	{
 		if (hold[i] == '\n')
 			return (hold + i);
+		// else if(hold[i] == '\0')
+		// 	return hold;
 		i++;
 	}
+	//printf("%s\n", hold);
 	return (0);
 }
 
@@ -100,7 +103,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (0);
 	mystrcpy(new, s1);
 	ft_strcat(new, s2);
-	//free(s1);
+	free(s1);
 	return (new);
 }
 

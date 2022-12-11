@@ -65,6 +65,7 @@ char	*ft_read(char *hold, int fd, char *buffer)
 	nbb = 1;
 	while (!ft_backslash(hold) && nbb != 0)
 	{
+		printf("%s\n%d", hold, nbb);
 		nbb = read(fd, buffer, BUFFER_SIZE);
 		if (nbb <= 0)
 		{
@@ -74,7 +75,7 @@ char	*ft_read(char *hold, int fd, char *buffer)
 		buffer[nbb] = '\0';
 		hold = ft_strjoin(hold, buffer);
 	}
-	free(buffer);
+	//free(buffer);
 	return (hold);
 }
 
@@ -94,30 +95,31 @@ char	*get_next_line(int fd)
 	hold = ft_read(hold, fd, buffer);
 	if (!hold)
 		return (NULL);
+	free(buffer);
 	buffer = ft_getline(hold);
 	hold = ft_nextone(hold);
 	free(hold);
 	return (buffer);
 }
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*str;
+int	main(void)
+{
+	int		fd;
+	char	*str;
 
-// 	fd = 0;
-// 	fd = open("txt", O_CREAT | O_RDWR, 777);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
+	fd = 0;
+	fd = open("txt", O_CREAT | O_RDWR, 777);
+	str = get_next_line(fd);
+	printf("%s", str);
+	free(str);
+	// str = get_next_line(fd);
+	// printf("%s", str);
 
-// 	// //  printf("%s", get_next_line(fd));
-// 	// //  printf("%s", get_next_line(fd));
-// 	// // printf("%s", get_next_line(fd));
-// 		free(str);
-// 	close(fd);
+	// //  printf("%s", get_next_line(fd));
+	// //  printf("%s", get_next_line(fd));
+	// // printf("%s", get_next_line(fd));
+		//free(str);
+	close(fd);
 // 	while (1)
 // 		;
-// }
+ }
