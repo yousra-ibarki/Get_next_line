@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoibarki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/11 08:24:46 by yoibarki          #+#    #+#             */
-/*   Updated: 2022/12/11 08:24:47 by yoibarki         ###   ########.fr       */
+/*   Created: 2022/12/11 08:23:52 by yoibarki          #+#    #+#             */
+/*   Updated: 2022/12/11 08:23:54 by yoibarki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFFER_SIZE 100
+ # define BUFFER_SIZE 10
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -23,7 +22,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_backslash(char *hold, int nbb);
+char	*ft_backslash(char *hold, char nbb);
 char	*ft_cpy(char *holdline, char *hold);
 char	*ft_strdup(char *s1);
 int		ft_strlen(char *hold);
