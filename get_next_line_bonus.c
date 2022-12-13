@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_next_line_bonus.h"
 
 char	*ft_getline(char *hold)
@@ -59,51 +58,73 @@ char	*ft_nextone(char *hold)
 	return (nextone);
 }
 
-char	*get_next_line(int fd)
+char	*ft_read(char *hold, int fd, char *buffer)
 {
-	static char	*hold[4096];
-	char		*buffer;
-	int			nbb;
-	int			i;
+	int	nbb;
 
-	//char		*holdline;
-	//holdline = NULL;
 	nbb = 1;
-	i = 0;
-	if (fd < 0 || BUFFER_SIZE < 1)
-		return (0);
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	while (!ft_backslash(hold[fd]) && nbb != 0)
+	while (!ft_backslash(hold, nbb) && nbb != 0)
 	{
+		//printf("%s\n%d", hold, nbb);
 		nbb = read(fd, buffer, BUFFER_SIZE);
-		if (nbb < 0)
+		if (nbb <= 0)
 		{
 			free(buffer);
 			return (0);
 		}
 		buffer[nbb] = '\0';
-		hold[fd] = ft_strjoin(hold, buffer);
+		hold = ft_strjoin(hold, buffer);
 	}
+	//free(buffer);
+	return (hold);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*hold[4096];
+	char		*buffer;
+	int			i;
+
+	i = 0;
+	if (fd < 0 || BUFFER_SIZE < 1 || fd > 4096)
+		return (0);
+	
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	hold[fd] = ft_read(hold[fd], fd, buffer);
+	if (!hold[fd])
+		return (NULL);
 	free(buffer);
 	buffer = ft_getline(hold[fd]);
 	hold[fd] = ft_nextone(hold[fd]);
-	 free(hold[fd]);
+	free(hold[fd]);
 	return (buffer);
 }
 
-int	main(void)
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*str;
+
+// 	fd = 0;
+// 	fd = open("txt", O_CREAT | O_RDWR, 777);
+// 	str = get_next_line(fd);
+// 	printf("%s", str);
+// 	free(str);
+// 	// str = get_next_line(fd);
+// 	// printf("%s", str);
+
+// 	// //  printf("%s", get_next_line(fd));
+// 	// //  printf("%s", get_next_line(fd));
+// 	// // printf("%s", get_next_line(fd));
+// 		//free(str);
+// 	close(fd);
+// 	// while (155)
+// 	// 	;
+//  }
+int main(int ac, char **av)
 {
-	int fd = 0;
-	fd = open("txt", O_CREAT | O_RDWR, 777);
-	char *str = get_next_line(fd);
-	printf("%s",str);
-	//  printf("%s", get_next_line(fd));
-	//  printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
-	free(str);
-	close(fd);
-	while (1)
-		;
+    if(ac > 1)
+    printf("%s", get_next_line(ac));
 }

@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
- # define BUFFER_SIZE 10
+
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -20,9 +20,13 @@
 # include <string.h>
 # include <unistd.h>
 
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 100
+#endif
+
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_backslash(char *hold, char nbb);
+char	*ft_backslash(char *hold, int nbb);
 char	*ft_cpy(char *holdline, char *hold);
 char	*ft_strdup(char *s1);
 int		ft_strlen(char *hold);
