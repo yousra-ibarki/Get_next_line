@@ -120,17 +120,3 @@ char	*get_next_line(int fd)
 	hold = ft_nextone(hold);
 	return (buffer_hold);
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*str;
-
-// 	fd = 0;
-// 	fd = open("txt", O_RDWR, 777);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// }

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_next_line_bonus.h"
 
 int	ft_strlen(char *str)
@@ -74,6 +73,26 @@ char	*ft_nextone(char *hold)
 	return (rest);
 }
 
+char	*nbb_null(char *buffer_hold, char **hold, char *ret, int nbb)
+{
+	if (nbb < 0)
+		return (free(buffer_hold), NULL);
+	else if (nbb == 0)
+	{
+		free(buffer_hold);
+		ret = ft_strdup(*hold);
+		if (*hold)
+		{
+			free(*hold);
+			*hold = NULL;
+		}
+		if (ret[0] == '\0')
+			return (free(ret), NULL);
+		return (ret);
+	}
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*hold[4096];
@@ -81,6 +100,7 @@ char	*get_next_line(int fd)
 	int			nbb;
 	char		*ret;
 
+	ret = NULL;
 	nbb = 1;
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
@@ -90,50 +110,13 @@ char	*get_next_line(int fd)
 	while (!ft_backslash(hold[fd]) && nbb != 0)
 	{
 		nbb = read(fd, buffer_hold, BUFFER_SIZE);
-		if (nbb < 0)
-		{
-			free(buffer_hold);
-			if (hold[fd])
-				free(hold[fd]);
-			return (NULL);
-		}
-		else if (nbb == 0)
-		{
-			free(buffer_hold);
-			ret = ft_strdup(hold[fd]);
-			if (hold[fd])
-			{
-				free(hold[fd]);
-				hold[fd] = NULL;
-			}
-			if (ret[0] == '\0')
-			{
-				free(ret);
-				return (NULL);
-			}
-			return (ret);
-		}
+		if (nbb <= 0)
+			return (nbb_null(buffer_hold, &hold[fd], ret, nbb));
 		buffer_hold[nbb] = '\0';
-		if (hold[fd])
-			hold[fd] = ft_strjoin(hold[fd], buffer_hold);
-		else
-			hold[fd] = ft_strdup(buffer_hold);
+		hold[fd] = ft_strjoin(hold[fd], buffer_hold);
 	}
 	free(buffer_hold);
 	buffer_hold = get_line(hold[fd]);
 	hold[fd] = ft_nextone(hold[fd]);
 	return (buffer_hold);
 }
-// int	main(void)
-// {
-// 	int	fd;
-
-// 	fd = 0;
-// 	fd = open("txt", O_RDWR, 777);
-// 	char *str = get_next_line(fd);
-// 	printf("%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("%s",str);
-
-// }

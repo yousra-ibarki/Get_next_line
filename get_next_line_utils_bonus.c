@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_next_line_bonus.h"
+
 char	*ft_strcpy(char *dest, char *src)
 {
 	int	i;
@@ -30,11 +30,12 @@ char	*ft_strdup(char *s1)
 {
 	int		len;
 	char	*arr;
-	if(!s1)
+
+	if (!s1)
 	{
 		arr = malloc(1);
 		arr[0] = '\0';
-		return(arr);
+		return (arr);
 	}
 	len = ft_strlen(s1);
 	arr = malloc(len * sizeof(char) + 1);
@@ -53,7 +54,7 @@ char	*ft_backslash(char *hold)
 		return (NULL);
 	while (hold[i])
 	{
-		if (hold[i] == '\n') //&& nbb <= BUFFER_SIZE
+		if (hold[i] == '\n')
 			return (hold + i);
 		i++;
 	}
@@ -88,6 +89,8 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s2)
 		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	ptr = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
