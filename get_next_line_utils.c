@@ -17,12 +17,17 @@ char	*ft_strdup(char *s1)
 {
 	int		len;
 	char	*arr;
-
+	if(!s1)
+	{
+		arr = malloc(1);
+		arr[0] = '\0';
+		return(arr);
+	}
 	len = ft_strlen(s1);
 	arr = malloc(len * sizeof(char) + 1);
 	if (arr == NULL)
 		return (NULL);
-	arr = ft_strcpy(s1, arr);
+	arr = ft_strcpy(arr, s1);
 	return (arr);
 }
 
@@ -70,7 +75,6 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s2)
 		return (NULL);
-	//printf("hello\n");
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	ptr = (char *)malloc(sizeof(char) * (len1 + len2 + 1));

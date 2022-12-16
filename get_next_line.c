@@ -50,13 +50,14 @@ char	*ft_nextone(char *hold)
 		return (NULL);
 	while (hold[i] && hold[i] != '\n')
 		i++;
+	i++;
 	rest = malloc(sizeof(char) * (len - i) + 1);
 	if (!rest)
 		return (NULL);
-	i++;
 	while (hold[i])
 		rest[j++] = hold[i++];
 	rest[j] = '\0';
+	free(hold);
 	return (rest);
 }
 
@@ -64,46 +65,62 @@ char	*get_next_line(int fd)
 {
 	static char	*hold;
 	char		*buffer_hold;
-	char		*buffer_line;
 	int			nbb;
+	char		*ret;
 
 	nbb = 1;
 	if (fd < 0 || BUFFER_SIZE < 1)
-		return (NULL);
-	hold = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!hold)
 		return (NULL);
 	buffer_hold = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buffer_hold)
 		return (NULL);
 	while (!ft_backslash(hold) && nbb != 0)
 	{
-		//printf("%s\n", hold);
 		nbb = read(fd, buffer_hold, BUFFER_SIZE);
 		if (nbb < 0)
 		{
 			free(buffer_hold);
-			free(hold);
+			if (hold)
+				free(hold);
 			return (NULL);
 		}
+		else if (nbb == 0)
+		{
+			free(buffer_hold);
+			ret = ft_strdup(hold);
+			if (hold)
+			{
+				free(hold);
+				hold = NULL;
+			}
+			if (ret[0] == '\0')
+			{
+				free(ret);
+				return (NULL);
+			}
+			return (ret);
+		}
 		buffer_hold[nbb] = '\0';
-		hold = ft_strjoin(hold, buffer_hold);
-		printf("the hold is %s\n", hold);
+		if (hold)
+			hold = ft_strjoin(hold, buffer_hold);
+		else
+			hold = ft_strdup(buffer_hold);
 	}
-	
-		printf("the second hold is %s\n", hold);
 	free(buffer_hold);
-	buffer_line = get_line(hold);
+	buffer_hold = get_line(hold);
 	hold = ft_nextone(hold);
-	free(hold);
-	return (buffer_line);
+	return (buffer_hold);
 }
-int	main(void)
-{
-	int	fd;
+// int	main(void)
+// {
+// 	int	fd;
 
-	fd = 0;
-	fd = open("txt", O_RDWR, 777);
-	printf("%s", get_next_line(fd));
-	close(fd);
-}
+// 	fd = 0;
+// 	fd = open("txt", O_RDWR, 777);
+// 	char *str = get_next_line(fd);
+// 	printf("%s",str);
+// 	free(str);
+// 	str = get_next_line(fd);
+// 	printf("%s",str);
+
+// }
